@@ -1,0 +1,521 @@
+@import 'tailwindcss';
+
+/* palette ─────────────────────────────────────────────────── */
+:root {
+  --bg:      #fefcf5;   /* ivory page background */
+  --ink:     #111827;   /* body text */
+  --muted:   #6b6b6b;   /* secondary text, dates, footer */
+  --under:   #a3a3a3;   /* thin grey link underline */
+  --wash:    #f5dada;   /* pink hover wash */
+  --wash-2:  #eacaca;   /* deeper pink (pressed tab) */
+  --wash-3:  #f8e4e4;   /* faded pink (selected tab) */
+  --rule:    #c8a0a0;   /* pink rule under the tabs */
+  --size:    16px;      /* nudge this one number to rescale everything */
+}
+/* ─────────────────────────────────────────────────────────── */
+
+* { box-sizing: border-box; }
+
+html {
+  background: var(--bg);
+  color-scheme: light only;
+  min-width: 360px;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  /* georgia throughout; display headings share the stack at a larger size */
+  font-family: Georgia, "Liberation Serif", "Nimbus Roman", "Times New Roman", Times, serif;
+  font-size: var(--size);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 9vh 32px 8vh;
+}
+
+h1 {
+  font-family: Georgia, "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", serif;
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0 0 0.5em;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+p { margin: 0 0 1em; }
+
+/* markdown `---` divider. tailwind's preflight sets a border width but no
+   border-style, so without this an <hr> renders as nothing */
+hr {
+  height: 0;
+  margin: 1.6em 0;
+  border: 0;
+  border-top: 1px solid var(--rule);
+}
+
+em { font-style: italic; }
+
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 0.5px;
+  text-underline-offset: 2px;
+  text-decoration-color: var(--under);
+  border-radius: 3px;
+  padding: 0 1px;
+  margin: 0 -1px;
+  transition: background-color 120ms ease;
+}
+a:hover, a:focus-visible {
+  background: var(--wash);
+  outline: none;
+}
+a:focus-visible { box-shadow: 0 0 0 2px var(--wash-2); }
+
+::selection {
+  background: var(--wash-2);
+  color: var(--ink);
+}
+
+.intro {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  margin-bottom: 1.4em;
+}
+.intro .text { flex: 1; min-width: 0; }
+/* the heading links back to the front page.
+   it shouldn't announce itself — no underline, no wash, no hover. it looks like
+   the heading it is, and clicking it takes you home. the focus ring stays, since
+   that only shows for keyboard users, who need to know it's there */
+.intro h1 a {
+  color: inherit;
+  text-decoration: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+.intro p:last-child, .intro ul { margin-bottom: 0; }
+.intro img {
+  flex: 0 0 auto;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 18%;   /* rounded square: 50% = circle, 0 = sharp corners */
+  margin-top: 44px;   /* aligns with the first paragraph, not the h1 */
+}
+
+/* tabs */
+nav[aria-label="sections"] {
+  padding-bottom: 0.55em;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.55em;
+}
+nav[aria-label="sections"] a {
+  background: transparent;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 0 4px;
+  margin: 0;
+}
+nav[aria-label="sections"] a:hover { background: var(--wash); }
+nav[aria-label="sections"] a:active { background: var(--wash-2); }
+/* the tab you're on holds its wash in every state — otherwise :hover ties on
+   specificity and wins on order, so it flickers as the cursor state settles */
+nav[aria-label="sections"] a[aria-current="page"],
+nav[aria-label="sections"] a[aria-current="page"]:hover,
+nav[aria-label="sections"] a[aria-current="page"]:active {
+  background: var(--wash-3);
+}
+nav[aria-label="sections"] .sep { color: var(--muted); user-select: none; }
+
+/* The rule under the tabs sits on the wrapper, not the nav, so clipping the
+   nav (below) doesn't cut it short. */
+.tab-row {
+  position: relative;
+  margin: 1.6em 0 1.2em;
+  border-bottom: 1px solid var(--rule);
+}
+/* On narrow screens the row moves a page at a time by its arrows (tab-row.tsx).
+   It is clipped to the tabs that fit whole, with room added after the last
+   tab so the last page can line up against the left arrow. */
+.tab-row nav {
+  padding-right: var(--room, 0px);
+  clip-path: inset(0 var(--clip-r, 0px) 0 var(--clip-l, 0px));
+}
+.tab-arrow {
+  position: absolute;
+  top: 0;
+  bottom: 0.55em; /* stop above the nav's bottom padding */
+  width: calc(var(--size) * 1.6); /* ARROW_EM in tab-row.tsx */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 1.2em;
+  line-height: 1;
+  /* a hair above the middle of the lowercase letters reads as centred */
+  padding-top: 0.03em;
+  color: var(--muted);
+  cursor: pointer;
+}
+/* a bigger target for a finger than the glyph itself, reaching up, down and
+   outward, but never over the tab beside the arrow */
+.tab-arrow::after { content: ""; position: absolute; top: -10px; bottom: -10px; }
+.tab-arrow.left::after { left: -10px; right: 0; }
+.tab-arrow.right::after { left: 0; right: -10px; }
+.tab-arrow[hidden] { display: none; }
+.tab-arrow:hover, .tab-arrow:focus-visible { color: var(--ink); }
+
+section { margin: 0 0 3em; }
+section .footnote { font-size: 14px; color: var(--muted); }
+section:last-of-type { margin-bottom: 0; }
+
+section h2 {
+  font-size: var(--size);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--muted);
+  margin: 1.5em 0 0.4em;
+}
+section h2:first-child { margin-top: 0; }
+
+/* sub-headings inside a section's prose (hobbies: races, routes) */
+section h3 {
+  font-size: var(--size);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ink);
+  margin: 1.2em 0 0.35em;
+}
+
+ul { list-style: none; padding: 0; margin: 0 0 1em; }
+li {
+  position: relative;
+  margin: 0 0 0.25em;
+  padding-left: 1.4em;
+  line-height: 1.4;
+}
+/* absolute so the marker sits in the gutter whether the item's content is
+   inline or wrapped in block-level <p>s, as loose markdown lists are */
+li::before {
+  content: "~";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--muted);
+}
+li:last-child { margin-bottom: 0; }
+
+/* markdown writes a loose list — one <p> per item — whenever its items are
+   separated by blank lines, which is an authoring detail, not a design one. The
+   paragraph margin would stack on top of the item's own, spacing those bullets
+   further apart than identical ones written tight. The item owns the spacing. */
+li > p { margin: 0; }
+li > p + p { margin-top: 0.35em; }
+
+/* nested lists keep the ~ marker, indented one level further */
+li > ul { margin: 0.15em 0 0; padding-left: 1.4em; }
+
+/* an item heading a nested list leads with its own mark (📍), so no ~ */
+li:has(> ul) { padding-left: 0; }
+li:has(> ul)::before { content: none; }
+li .meta { color: var(--muted); font-style: italic; }
+/* experience & service read as plain text, no italics */
+.entries .meta { font-style: normal; }
+li .rule { color: var(--muted); }
+
+/* inline link with a trailing outbound arrow */
+.arrow-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.1em;
+}
+.arrow-link svg {
+  width: 0.65em;
+  height: 0.65em;
+  flex: 0 0 auto;
+  transform: translateY(-0.05em);
+}
+
+/* course filter above the teaching tables */
+.filter { color: var(--muted); margin: 0 0 1.1em; }
+.filter button {
+  font: inherit;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  padding: 0 4px;
+  margin: 0 0.1em;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 120ms ease;
+}
+.filter button:hover { background: var(--wash); }
+.filter button:active { background: var(--wash-2); }
+.filter button[aria-pressed='true'] { background: var(--wash-3); }
+.filter button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--wash-2);
+}
+.filter .sep { color: var(--muted); user-select: none; }
+@media (prefers-reduced-motion: reduce) { .filter button { transition: none; } }
+
+/* teaching materials: topic on the left, resources on the right */
+.rows { margin: 0 0 1em; }
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.5em;
+  padding: 0.18em 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--rule) 30%, transparent);
+}
+.row:last-child { border-bottom: 0; }
+.row-topic { flex: 1 1 14em; min-width: 0; }
+.row-links { flex: 0 0 auto; color: var(--muted); }
+.row .meta { font-style: italic; }
+
+@media (max-width: 480px) {
+  .row-links { flex-basis: 100%; }
+}
+
+/* footer */
+footer {
+  margin-top: 2.5em;
+  padding-top: 0.8em;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+footer p { margin: 0; }
+footer a { color: var(--muted); }
+
+/* icon row */
+footer .links {
+  display: flex;
+  align-items: center;
+  gap: 0.1em;
+  margin-bottom: 0.35em;
+}
+footer .links a {
+  display: inline-flex;
+  padding: 4px;
+  margin: 0;
+  border-radius: 4px;
+  text-decoration: none;
+}
+footer .links a:hover, footer .links a:focus-visible { background: var(--wash); }
+footer .links svg { display: block; }
+
+
+/* stack the photo above the intro as soon as the name can't fit on one line
+   beside it: the name is ~344px wide, and the photo, gap and side padding take
+   242px more, so it starts wrapping just under 586px. 600 leaves a little
+   slack, so the name never sits awkwardly on two lines first */
+@media (max-width: 600px) {
+  .intro { flex-direction: column-reverse; gap: 16px; }
+  .intro img { width: 112px; height: 112px; margin-top: 0; }
+}
+
+@media (max-width: 480px) {
+  /* narrower side padding buys ~24px for every line on the page */
+  main { padding: 8vh 20px; }
+}
+
+/* the tabs need ~487px on one line, which with the side padding means a screen
+   ~551px wide; any narrower and wrapping strands a separator at the seam. So
+   keep them on one line; the arrows page through them, and the row doesn't
+   scroll by hand, which could leave a word cut in half. 560 leaves a little
+   slack */
+@media (max-width: 560px) {
+  nav[aria-label="sections"] {
+    gap: 0.45em;
+    flex-wrap: nowrap;
+    overflow-x: hidden;
+  }
+  nav[aria-label="sections"] > * { flex: none; }
+  nav[aria-label="sections"] a { padding: 0 3px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  a { transition: none; }
+}
+
+/* ── post pages ─────────────────────────────────────────────── */
+
+.post-back { display: inline-block; margin-bottom: 1.6em; }
+
+.post-title { margin-bottom: 0.25em; }
+
+.post-subtitle {
+  font-family: Georgia, "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", serif;
+  font-size: var(--size);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--muted);
+  margin: 0 0 0.5em;
+}
+
+.post-meta {
+  color: var(--muted);
+  margin: 0 0 1.6em;
+}
+.post-meta .sep { padding: 0 0.4em; }
+
+.prose { font-size: var(--size); line-height: 1.6; }
+/* the first and last blocks vary by post, so pin their outer margins */
+.prose > :first-child { margin-top: 0; }
+.prose > :last-child { margin-bottom: 0; }
+.prose p { margin: 0 0 1.1em; }
+.prose h1 { font-size: 22px; margin: 1.8em 0 0.5em; }
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  font-family: Georgia, "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", serif;
+  font-size: var(--size);
+  font-weight: 600;
+  font-style: italic;
+  color: var(--ink);
+  margin: 1.8em 0 0.5em;
+  line-height: 1.3;
+}
+.prose h1 {
+  font-family: Georgia, "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", serif;
+  font-weight: 600;
+}
+
+.prose ul { list-style: none; padding: 0; margin: 0 0 1.1em; }
+.prose ol { list-style: decimal; padding-left: 1.4em; margin: 0 0 1.1em; }
+.prose ol li { position: static; padding-left: 0; }
+.prose ol li::before { content: none; }
+
+/* loose lists wrap each item in a <p>; keep them from double-spacing */
+.prose li > p { margin: 0 0 0.35em; }
+.prose li > :last-child { margin-bottom: 0; }
+
+.prose strong { font-weight: 700; }
+
+.prose blockquote {
+  margin: 1.4em 0;
+  padding-left: 1em;
+  border-left: 1px solid var(--rule);
+  color: var(--muted);
+  font-style: italic;
+}
+.prose blockquote p:last-child { margin-bottom: 0; }
+
+.prose figure { margin: 1.6em 0; }
+.prose figure img { display: block; width: 100%; height: auto; border-radius: 6px; }
+.prose figcaption {
+  margin-top: 0.5em;
+  text-align: center;
+  color: var(--muted);
+}
+
+.prose .small-text { color: var(--muted); margin: 0.5em 0 1.1em; }
+
+.prose .section-header {
+  font-family: Georgia, "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", serif;
+  font-weight: 600;
+  margin: 1.8em 0 0.4em;
+}
+
+/* lecture-notes link: label plus an outbound arrow, indented as before */
+.prose .notes-row { margin: 0.9em 0 0.3em; padding-left: 1em; }
+.prose .notes-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+}
+.prose .notes-link svg { width: 0.8em; height: 0.8em; flex: 0 0 auto; }
+
+/* disclosure: chevron flips when open */
+.prose details.collapsible { margin: 0.3em 0 1.1em; padding-left: 1em; }
+.prose details.collapsible > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  cursor: pointer;
+  list-style: none;
+  border-radius: 3px;
+  padding: 0 2px;
+  text-decoration: underline;
+  text-decoration-thickness: 0.5px;
+  text-underline-offset: 2px;
+  text-decoration-color: var(--under);
+  transition: background-color 120ms ease;
+}
+.prose details.collapsible > summary::-webkit-details-marker { display: none; }
+.prose details.collapsible > summary::marker { content: ""; }
+.prose details.collapsible > summary:hover { background: var(--wash); }
+.prose details.collapsible > summary svg {
+  width: 0.7em;
+  height: 0.7em;
+  flex: 0 0 auto;
+  transition: transform 200ms ease;
+}
+.prose details.collapsible[open] > summary svg { transform: rotate(180deg); }
+.prose .collapsible-body { margin-top: 0.6em; }
+.prose .collapsible-body > :last-child { margin-bottom: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .prose details.collapsible > summary,
+  .prose details.collapsible > summary svg { transition: none; }
+}
+
+.prose pre {
+  overflow-x: auto;
+  padding: 0.6em 0.8em;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+.prose pre code { padding: 0; line-height: 1.5; }
+.prose code { font-size: 0.95em; }
+
+.prose table {
+  display: block;
+  max-width: fit-content;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-collapse: collapse;
+  margin: 0 0 1.1em;
+}
+.prose th, .prose td {
+  text-align: left;
+  padding: 0.2em 1em 0.2em 0;
+}
+.prose th { font-weight: 600; }
+
+pre::-webkit-scrollbar { display: none; }
+pre {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;    /* Firefox */
+}
+
+/* syntax highlighting (sugar-high) */
+:root {
+  --sh-class: #2d5e9d;
+  --sh-identifier: #354150;
+  --sh-sign: #8996a3;
+  --sh-string: #007f7a;
+  --sh-keyword: #e02518;
+  --sh-comment: #a19595;
+  --sh-jsxliterals: #6266d1;
+  --sh-property: #e25a1c;
+  --sh-entity: #e25a1c;
+}
+
+/* inline KaTeX: match surrounding text size (display math stays default) */
+:not(.katex-display) > .katex { font-size: 1em; }
+
