@@ -518,3 +518,6 @@ pre {
 /* inline KaTeX: match surrounding text size (display math stays default) */
 :not(.katex-display) > .katex { font-size: 1em; }
 
+/* Swapnil-specific additions */
+.entries li { margin-bottom: 0.72em; }
+.entry-detail { margin-top: 0.2em; color: var(--muted); font-size: 14px; line-height: 1.45; }
