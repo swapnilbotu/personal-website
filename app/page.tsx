@@ -1,3 +1,6 @@
+import { SectionPage } from 'app/components/section-page'
+
+// Recruiters land on experience rather than a blog or an empty splash page.
 export default function Page() {
-  return <section><h1>personal website</h1></section>
+  return <SectionPage current="experience" />
 }
