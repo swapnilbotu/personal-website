@@ -118,13 +118,14 @@ nav[aria-label="sections"] {
   gap: 0 0.55em;
 }
 nav[aria-label="sections"] a {
+  background: transparent;
   color: var(--ink);
   text-decoration: none;
   padding: 0 4px;
   margin: 0;
 }
-nav[aria-label="sections"] a:hover { background: var(--wash); }
-nav[aria-label="sections"] a:active { background: var(--wash-2); }
+nav[aria-label="sections"] a:not([aria-current="page"]):hover { background: var(--wash); }
+nav[aria-label="sections"] a:not([aria-current="page"]):active { background: var(--wash-2); }
 /* the tab you're on holds its wash in every state — otherwise :hover ties on
    specificity and wins on order, so it flickers as the cursor state settles */
 nav[aria-label="sections"] a[aria-current="page"],
