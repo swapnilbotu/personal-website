@@ -127,12 +127,18 @@ function Tabs({ sections, current }: { sections: Section[]; current: SectionId }
 }
 
 export function SectionPage({ current }: { current: SectionId }) {
+  const intro = getIntro()
   const sections = getSections()
   const section = sections[current]
 
   return (
     <>
       <KeepScroll />
+      <div className="intro">
+        <div className="text"><CustomMDX source={intro.content} /></div>
+        <Image src={intro.image} alt={intro.imageAlt} width={150} height={150} priority />
+      </div>
+
       <Tabs sections={Object.values(sections)} current={current} />
 
       <section id={section.id}>
