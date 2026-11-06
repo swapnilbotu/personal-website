@@ -6,10 +6,10 @@
   --ink:     #111827;   /* body text */
   --muted:   #6b6b6b;   /* secondary text, dates, footer */
   --under:   #a3a3a3;   /* thin grey link underline */
-  --wash:    #f5dada;   /* pink hover wash */
-  --wash-2:  #eacaca;   /* deeper pink (pressed tab) */
-  --wash-3:  #f8e4e4;   /* faded pink (selected tab) */
-  --rule:    #c8a0a0;   /* pink rule under the tabs */
+  --wash:    #dce9f5;   /* muted-blue hover wash */
+  --wash-2:  #c7d9ec;   /* deeper muted blue (pressed tab) */
+  --wash-3:  #edf3fa;   /* faded muted blue (selected tab) */
+  --rule:    #8fa8bc;   /* muted-blue rule under the tabs */
   --size:    16px;      /* nudge this one number to rescale everything */
 }
 /* ─────────────────────────────────────────────────────────── */
