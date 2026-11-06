@@ -103,8 +103,8 @@ a:focus-visible { box-shadow: 0 0 0 2px var(--wash-2); }
 .intro p:last-child, .intro ul { margin-bottom: 0; }
 .intro img {
   flex: 0 0 auto;
-  width: 180px;
-  height: 180px;
+  width: 220px;
+  height: 220px;
   object-fit: cover;
   object-position: center;
   border-radius: 18%;   /* rounded square: 50% = circle, 0 = sharp corners */
@@ -326,7 +326,7 @@ footer .links svg { display: block; }
    slack, so the name never sits awkwardly on two lines first */
 @media (max-width: 640px) {
   .intro { flex-direction: column-reverse; gap: 16px; }
-  .intro img { width: 132px; height: 132px; margin-top: 0; }
+  .intro img { width: 160px; height: 160px; margin-top: 0; }
 }
 
 @media (max-width: 500px) {

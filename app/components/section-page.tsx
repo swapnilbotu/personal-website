@@ -136,7 +136,7 @@ export function SectionPage({ current }: { current: SectionId }) {
       <KeepScroll />
       <div className="intro">
         <div className="text"><CustomMDX source={intro.content} /></div>
-        <Image src={intro.image} alt={intro.imageAlt} width={180} height={180} priority unoptimized />
+        <Image src={intro.image} alt={intro.imageAlt} width={220} height={220} priority unoptimized />
       </div>
 
       <Tabs sections={Object.values(sections)} current={current} />
