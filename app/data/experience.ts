@@ -22,25 +22,25 @@ export const experience: Group[] = [
         role: 'ai evaluation & machine learning engineering intern',
         org: 'safe robots',
         dates: 'june 2026 – september 2026',
-        detail: 'raised table classifier accuracy from 60% to 94.6% and reduced inference latency by 74%.',
+        detail: 'raised safety-standards table classifier accuracy from 60% to 94.6% and reduced inference latency by 74%.',
       },
       {
-        role: 'software engineering developer (contractor)',
-        org: 'hewlett packard enterprise (hpe)',
+        role: 'swe developer (contractor)',
+        org: 'hewlett packard enterprise',
         dates: 'october 2024 – july 2026',
-        detail: 'built a python/tkinter configuration tool for 893 product records and 240 configurable skus; automated 4 licensing workflows with 11 passing tests.',
+        detail: 'built configuration tool for 1k+ product records and 240 configurable SKUs; automated 4 licensing workflows.'
       },
       {
         role: 'artificial intelligence engineering intern',
         org: 'reality ai lab',
         dates: 'april 2024 – may 2025',
-        detail: 'expanded an edtech platform from 3 to 16 supported file formats.',
+        detail: 'built ai assistant, flashcard generator, and mcq quiz engine adopted by 200+ students and 50+ teachers; expanded file upload support from 3 to 16 file formats.',
       },
       {
         role: 'lead software development intern',
         org: 'learnhaus',
         dates: 'january 2025 – june 2025',
-        detail: 'built a chrome extension that increased platform usage by 54%.',
+        detail: 'built a chrome extension that increased platform usage by 54%; developed keyword-based PDF scraper reducing search time by 45%.',
       },
       {
         role: 'data science researcher',
