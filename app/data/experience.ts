@@ -28,6 +28,7 @@ export const experience: Group[] = [
         role: 'software engineering developer (contractor)',
         org: 'hewlett packard enterprise (hpe)',
         dates: 'october 2024 – july 2026',
+        detail: 'built a python/tkinter configuration tool for 893 product records and 240 configurable skus; automated 4 licensing workflows with 11 passing tests.',
       },
       {
         role: 'artificial intelligence engineering intern',
