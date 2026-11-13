@@ -54,7 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </svg>
               </a>
             </p>
-            <p>last updated {lastUpdated}. built with care.</p>
+            <p>last updated {lastUpdated}.</p>
           </footer>
           <Analytics />
           <SpeedInsights />

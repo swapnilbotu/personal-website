@@ -10,7 +10,7 @@
   --wash-2:  #c7d9ec;   /* deeper muted blue (pressed tab) */
   --wash-3:  #edf3fa;   /* faded muted blue (selected tab) */
   --rule:    #8fa8bc;   /* muted-blue rule under the tabs */
-  --size:    16px;      /* nudge this one number to rescale everything */
+  --size:    17px;      /* slightly larger text across the site */
 }
 /* ─────────────────────────────────────────────────────────── */
 
@@ -33,14 +33,14 @@ body {
 }
 
 main {
-  max-width: 720px;
+  max-width: 768px;
   margin: 0 auto;
-  padding: 9vh 32px 8vh;
+  padding: 9vh 34px 8vh;
 }
 
 h1 {
   font-family: Georgia, "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", serif;
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 600;
   margin: 0 0 0.5em;
   letter-spacing: -0.01em;
@@ -84,7 +84,7 @@ a:focus-visible { box-shadow: 0 0 0 2px var(--wash-2); }
 
 .intro {
   display: flex;
-  gap: 28px;
+  gap: 30px;
   align-items: flex-start;
   margin-bottom: 1.4em;
 }
@@ -101,12 +101,19 @@ a:focus-visible { box-shadow: 0 0 0 2px var(--wash-2); }
   margin: 0;
 }
 .intro p:last-child, .intro ul { margin-bottom: 0; }
-.intro img {
+.intro .profile-photo {
   flex: 0 0 auto;
-  width: 150px;
-  height: 150px;
+  width: 220px;
+  height: 220px;
+  overflow: hidden;
+  border-radius: 18%;
+  margin-top: 47px;
+}
+.intro .profile-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  object-position: center;
   border-radius: 18%;   /* rounded square: 50% = circle, 0 = sharp corners */
   margin-top: 44px;   /* aligns with the first paragraph, not the h1 */
 }
@@ -178,7 +185,7 @@ nav[aria-label="sections"] .sep { color: var(--muted); user-select: none; }
 .tab-arrow:hover, .tab-arrow:focus-visible { color: var(--ink); }
 
 section { margin: 0 0 3em; }
-section .footnote { font-size: 14px; color: var(--muted); }
+section .footnote { font-size: 15px; color: var(--muted); }
 section:last-of-type { margin-bottom: 0; }
 
 section h2 {
@@ -296,7 +303,7 @@ footer {
   padding-top: 0.8em;
   border-top: 1px solid var(--rule);
   color: var(--muted);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.5;
 }
 footer p { margin: 0; }
@@ -324,14 +331,14 @@ footer .links svg { display: block; }
    beside it: the name is ~344px wide, and the photo, gap and side padding take
    242px more, so it starts wrapping just under 586px. 600 leaves a little
    slack, so the name never sits awkwardly on two lines first */
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .intro { flex-direction: column-reverse; gap: 16px; }
-  .intro img { width: 112px; height: 112px; margin-top: 0; }
+  .intro .profile-photo { width: 160px; height: 160px; margin-top: 0; }
 }
 
-@media (max-width: 480px) {
-  /* narrower side padding buys ~24px for every line on the page */
-  main { padding: 8vh 20px; }
+@media (max-width: 500px) {
+  /* tighter margins on small screens leave room for the slightly larger type */
+  main { padding: 8vh 21px; }
 }
 
 /* the tabs need ~487px on one line, which with the side padding means a screen
@@ -339,7 +346,7 @@ footer .links svg { display: block; }
    keep them on one line; the arrows page through them, and the row doesn't
    scroll by hand, which could leave a word cut in half. 560 leaves a little
    slack */
-@media (max-width: 560px) {
+@media (max-width: 600px) {
   nav[aria-label="sections"] {
     gap: 0.45em;
     flex-wrap: nowrap;
@@ -378,7 +385,7 @@ footer .links svg { display: block; }
 .prose > :first-child { margin-top: 0; }
 .prose > :last-child { margin-bottom: 0; }
 .prose p { margin: 0 0 1.1em; }
-.prose h1 { font-size: 22px; margin: 1.8em 0 0.5em; }
+.prose h1 { font-size: 24px; margin: 1.8em 0 0.5em; }
 .prose h2,
 .prose h3,
 .prose h4,
@@ -522,5 +529,5 @@ pre {
 
 /* Swapnil-specific additions */
 .entries li { margin-bottom: 0.72em; }
-.entry-detail { margin-top: 0.2em; color: var(--muted); font-size: 14px; line-height: 1.45; }
+.entry-detail { margin-top: 0.2em; color: var(--muted); font-size: 15px; line-height: 1.45; }
 .project-links { white-space: normal; }
