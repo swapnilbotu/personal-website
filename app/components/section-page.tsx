@@ -54,7 +54,7 @@ function GroupedEntries({ groups }: { groups: Group[] }) {
                   <a href={entry.url} target="_blank" rel="noopener noreferrer">{entry.org}</a>
                 ) : entry.org}{' '}
                 <span className="meta">({entry.dates})</span>
-                {entry.detail && <div className="entry-detail">{entry.detail}</div>}
+                {entry.detail && <div className="entry-detail">{inline(entry.detail)}</div>}
               </li>
             ))}
           </ul>

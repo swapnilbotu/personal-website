@@ -33,7 +33,7 @@ body {
 }
 
 main {
-  max-width: 768px;
+  max-width: 820px;
   margin: 0 auto;
   padding: 9vh 34px 8vh;
 }
@@ -529,5 +529,5 @@ pre {
 
 /* Swapnil-specific additions */
 .entries li { margin-bottom: 0.72em; }
-.entry-detail { margin-top: 0.2em; color: var(--muted); font-size: 15px; line-height: 1.45; }
+.entry-detail { margin-top: 0.2em; color: var(--muted); font-size: 14px; line-height: 1.45; }
 .project-links { white-space: normal; }
