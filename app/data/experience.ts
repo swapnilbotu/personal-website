@@ -8,8 +8,6 @@ export type Entry = {
 }
 export type Group = { heading: string; entries: Entry[] }
 
-// Dates and accomplishments are taken from Swapnil's November 2026 résumé.
-// Review them before making your site public, particularly the organization names.
 export const experience: Group[] = [
   {
     heading: 'industry',
@@ -27,21 +25,26 @@ export const experience: Group[] = [
         detail: 'raised table classifier accuracy from 60% to 94.6% and reduced inference latency by 74%.',
       },
       {
-        role: 'lead software development intern',
-        org: 'learnhaus',
-        dates: 'jan – jun 2025',
-        detail: 'built a chrome extension that increased platform usage by 54%.',
+        role: 'software engineering developer (contractor)',
+        org: 'hewlett packard enterprise (hpe)',
+        dates: 'oct 2024 – jul 2026',
       },
-    ],
-  },
-  {
-    heading: 'research & ai',
-    entries: [
       {
         role: 'artificial intelligence engineering intern',
         org: 'reality ai lab',
         dates: 'apr 2024 – may 2025',
         detail: 'expanded an edtech platform from 3 to 16 supported file formats.',
+      },
+      {
+        role: 'lead software development intern',
+        org: 'learnhaus',
+        dates: 'jan – jun 2025',
+        detail: 'built a chrome extension that increased platform usage by 54%.',
+      },
+      {
+        role: 'data science researcher',
+        org: 'diya research',
+        dates: 'jun – nov 2024',
       },
     ],
   },
