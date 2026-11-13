@@ -104,9 +104,9 @@ a:focus-visible { box-shadow: 0 0 0 2px var(--wash-2); }
 .intro .profile-photo {
   flex: 0 0 auto;
   width: 220px;
-  height: 200px;
+  height: 220px;
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: 18%;
   margin-top: 47px;
 }
 .intro .profile-photo img {
@@ -114,7 +114,8 @@ a:focus-visible { box-shadow: 0 0 0 2px var(--wash-2); }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 25%;
+  border-radius: 18%;   /* rounded square: 50% = circle, 0 = sharp corners */
+  margin-top: 44px;   /* aligns with the first paragraph, not the h1 */
 }
 
 /* tabs */
@@ -332,7 +333,7 @@ footer .links svg { display: block; }
    slack, so the name never sits awkwardly on two lines first */
 @media (max-width: 640px) {
   .intro { flex-direction: column-reverse; gap: 16px; }
-  .intro .profile-photo { width: 190px; height: 175px; margin-top: 0; }
+  .intro .profile-photo { width: 160px; height: 160px; margin-top: 0; }
 }
 
 @media (max-width: 500px) {
